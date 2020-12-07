@@ -19,6 +19,7 @@ export class SpaceListingComponent implements OnInit {
   };
   public options;
   public yearFilters = Constants.YEAR_FILTERS;
+  public isLoading = false;
   constructor(
     private readonly spaceService: SpaceServiceService,
     private readonly route: ActivatedRoute,
@@ -63,16 +64,21 @@ export class SpaceListingComponent implements OnInit {
 
 
   getSpaceListing(params): void {
+    this.isLoading = true;
     this.spaceService.getSpaceListing({ ...params }).subscribe((data) => {
       this.spaceListing = data;
-    });
+      this.isLoading = false;
+    },
+      () => {
+        this.isLoading = false;
+      });
   }
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
   onScroll(event): void {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight &&
-    Number(this.defaultLimit.limit) < Constants.MAGIC_NUMBERS.ONE_TWENTY &&
-    Number(this.defaultLimit.limit) === this.spaceListing?.length) {
+      Number(this.defaultLimit.limit) < Constants.MAGIC_NUMBERS.ONE_TWENTY &&
+      Number(this.defaultLimit.limit) === this.spaceListing?.length) {
       const target = event.target;
       this.defaultLimit = {
         ...this.defaultLimit,

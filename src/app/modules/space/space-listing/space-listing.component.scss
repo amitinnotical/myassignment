@@ -95,12 +95,12 @@
 				width: 33.3333333%;
 			}
 		}
-		@media (min-width: 768px) and (max-width: 1024px) {
+		@media (min-width: 701px) and (max-width: 1024px) {
   			.card-container .set {
 				width: 50%;
 			}
 		  }
-		@media (max-width: 767px) {
+		@media (max-width: 701px) {
 			.card-container .set {
 				width: 50%;
 			}
@@ -111,7 +111,7 @@
 				width: 75%;
 			}
 		}
-		@media (max-width: 599px) {
+		@media (max-width: 700px) {
 			.card-container .set {
 				width: 100%;
 				padding: 0;
@@ -127,4 +127,14 @@
 		.launch-program-page{
 			text-align: center;
 			margin-top: 215px;
+		}
+		.loader{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			
+		}
+		.loader_image{
+			    width: 150px;
+			    height: 150px;
 		}

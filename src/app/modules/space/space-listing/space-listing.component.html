@@ -5,42 +5,52 @@
         <h4>launch year</h4>
         <div class="filters">
             <div>
-                <button *ngFor="let year of yearFilters" (click)="getDataByFilter('launch_year', year.year)" [ngClass]="{'active': defaultLimit.launch_year === year.year}">{{year.year}}</button>
+                <button *ngFor="let year of yearFilters" (click)="getDataByFilter('launch_year', year.year)"
+                    [ngClass]="{'active': defaultLimit.launch_year === year.year}">{{year.year}}</button>
             </div>
 
         </div>
         <h4>Successful launch</h4>
         <div class="filters">
             <div>
-                <button [ngClass]="{'active': defaultLimit?.launch_success === 'true'}" (click)="getDataByFilter('launch_success', true)">True</button>
-                <button [ngClass]="{'active': defaultLimit?.launch_success === 'false'}" (click)="getDataByFilter('launch_success', false)">False</button>
+                <button [ngClass]="{'active': defaultLimit?.launch_success === 'true'}"
+                    (click)="getDataByFilter('launch_success', true)">True</button>
+                <button [ngClass]="{'active': defaultLimit?.launch_success === 'false'}"
+                    (click)="getDataByFilter('launch_success', false)">False</button>
             </div>
         </div>
         <h4>Successful landing</h4>
         <div class="filters">
             <div>
-                <button [ngClass]="{'active': defaultLimit?.land_success === 'true'}" (click)="getDataByFilter('land_success', true)">True</button>
-                <button [ngClass]="{'active': defaultLimit?.land_success === 'false'}" (click)="getDataByFilter('land_success', false)">False</button>
+                <button [ngClass]="{'active': defaultLimit?.land_success === 'true'}"
+                    (click)="getDataByFilter('land_success', true)">True</button>
+                <button [ngClass]="{'active': defaultLimit?.land_success === 'false'}"
+                    (click)="getDataByFilter('land_success', false)">False</button>
             </div>
-        </div>
+         </div>
     </aside>
+    <div class="loader" *ngIf="isLoading">
+        <img class="loader_image" src="assets/images/loader_img.gif" alt="">
+    </div>
     <div class="card-container" *ngIf="spaceListing?.length">
-         <div class="set" *ngFor="let space of spaceListing" (scroll)="onScrolling($event)">
+        <div class="set" *ngFor="let space of spaceListing" (scroll)="onScrolling($event)">
             <div class="card">
                 <figure>
-                    <img onError="this.src='../../../assets/images/default.png'" src="{{space?.links?.mission_patch_small}}" alt="" />
+                    <img onError="this.src='../../../assets/images/default.png'"
+                        src="{{space?.links?.mission_patch_small}}" alt="" />
                 </figure>
                 <div class="card-content">
                     <h3>{{space?.mission_name.slice(0, 10)}}...#{{space?.flight_number}}</h3>
                     <p>Mission Ids <span>{{space?.mission_id?.length ? space?.mission_id?.join() : '-'}}</span></p>
                     <p>Launch year <span>{{space?.launch_year}}</span></p>
                     <p>Successful launch <span>{{space?.launch_success}}</span></p>
-                    <p>Successful landing <span>{{space.rocket.first_stage.cores[0].land_success ? true : false}}</span></p>
+                    <p>Successful landing <span>{{space.rocket.first_stage.cores[0].land_success ? true : false}}</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="launch-program-page" *ngIf="!spaceListing?.length">
-        <h1> No Records Found </h1> 
+    <div class="launch-program-page" *ngIf="!spaceListing?.length && !isLoading">
+        <h1> No Space Found </h1>
     </div>
 </div>
